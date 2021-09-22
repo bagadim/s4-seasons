@@ -3,19 +3,17 @@ import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
 
 class App extends React.Component {
-
-    // onetime setup
-    constructor(props) {
-        super(props);
-        this.state = { latitude: 0, longitude: 0 , errorMessage: ''}; // the only time state is set directly
-
-    }
+    state = { 
+        latitude: 0, 
+        longitude: 0,
+        errorMessage: ''
+    };
     render() {
         if (this.state.errorMessage && !this.state.latitude) {
             return <div>Error: {this.state.errorMessage}</div>
         }
         if (!this.state.errorMessage && this.state.latitude) {
-            return <div>Latitude: {this.state.latitude}</div>
+            return <SeasonDisplay latitude={this.state.latitude}/>
         }
         return <div>Loading...</div>
     }
