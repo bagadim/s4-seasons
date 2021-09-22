@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 class App extends React.Component {
     state = { 
@@ -8,14 +9,21 @@ class App extends React.Component {
         longitude: 0,
         errorMessage: ''
     };
-    render() {
+    renderContent() {
         if (this.state.errorMessage && !this.state.latitude) {
             return <div>Error: {this.state.errorMessage}</div>
         }
         if (!this.state.errorMessage && this.state.latitude) {
             return <SeasonDisplay latitude={this.state.latitude}/>
         }
-        return <div>Loading...</div>
+        return <Spinner text="Getting your geolocation..."/>;
+    }
+    render() {
+        return (
+            <div className="border red">
+                {this.renderContent()}
+            </div>
+        )
     }
     // data loading
     // start tick updates
@@ -30,14 +38,11 @@ class App extends React.Component {
         );
         console.log('App component was added to the DOM')
     }
-
     // data loading on props/state change
     componentDidUpdate() {
         console.log('App component was updated')
     }
-
     componentWillUnmount() {
-
     }
 }
 
